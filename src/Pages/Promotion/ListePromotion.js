@@ -8,17 +8,21 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import {listeEmployes} from '../../api/api';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
+import {listePromotion} from '../../api/api';
+import { supprimerpromotion } from '../../api/api';
 import "../../css/ListeEmployes.css"
-import { supprimee } from '../../api/api';
-import Button from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+
+
 
 const columns = [
-  { id: 'Nom', label: 'Nom', minWidth: 170 },
-  { id: 'Prenom', label: 'Prenom', minWidth: 100 },
-  {id: 'Promotion', label: 'Promotion' },
+  { id: 'dateeffet', label: 'dateeffet', minWidth: 170 },
+  { id: 'observation', label: 'observation', minWidth: 100 },
+  { id: 'document', label: 'document', minWidth: 100 },
+  { id: 'id_poste', label: 'id_poste', minWidth: 100 },
+  { id: 'created_at', label: 'created_at', minWidth: 100 },
+  { id: 'created_by', label: 'created_by', minWidth: 100 },
+  
   /*{
     id: 'population',
     label: 'Population',
@@ -59,19 +63,33 @@ const useStyles = makeStyles({
 
 
         
-export default function ListeEmployes() {
+export default function ListePromotion() {
 
    
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
-  const [employees,setEmployees]= useState([]);
+  const [promotion,setPromotion]= useState([]);
+  const [fetchComplete, setFetchComplete] = useState(false);
   
    useEffect(async()=>
    {
-     const res=await listeEmployes();  
-     setEmployees(res);
+     const res=await listePromotion();  
+     console.log("resultat",res)
+     setPromotion(res);
     },[]
    )
+   const fetchPromotion = async () => {
+    const res = await listePromotion();
+    console.log("les conges sont::: ", res);
+    setPromotion(res);
+    setFetchComplete(true)
+  };
+   const DeletePromotion = (id) => {
+    console.log("je vais supprimer cette ligne", id);
+    supprimerpromotion(id).then(() => {
+      fetchPromotion();
+    });
+  };
   
 
    
@@ -85,7 +103,7 @@ export default function ListeEmployes() {
                 <TableCell
                   key={column.id}
                   align={column.align}
-                  style={{ minWidth: column.minWidth }}
+                  style={{ minWidth: column.minWidth,color:'white',backgroundColor:'#5E6BB4' }}
                 >
                   {column.label}
                 </TableCell>
@@ -93,35 +111,49 @@ export default function ListeEmployes() {
             </TableRow>
           </TableHead>
           { <TableBody>
-            {employees.map(emp => {
+            {promotion.map(emp => {
               return (
                 <TableRow hover role="checkbox" tabIndex={-1} key={emp._id}>
                   
                    
                                           
                       <TableCell>
-                        {emp.nom}
+                        {emp.dateeffet}
                       </TableCell>
                       
                       <TableCell>
-                        {emp.prenom}
+                        {emp.observation}
                       </TableCell>
                       
                       <TableCell>
-                        
+                        {emp.document}
                                         
                       </TableCell>
-                    
-                
+                      <TableCell>
+                        {emp.id_poste}
+                                        
+                      </TableCell>
+                      <TableCell>
+                        {emp.created_at}
+                                        
+                      </TableCell>
+                      <TableCell>
+                        {emp.created_by}
+                                        
+                      </TableCell>
+                      <TableCell>
+                      <DeleteIcon
+                        className="icone-delete"
+                        onClick={() => DeletePromotion(emp._id)}
+                      />
+                      </TableCell>
                 </TableRow>
               );
             })}
           </TableBody> }
         </Table>
       </TableContainer>
-      <Button variant="contained" color="primary" href="">
-  LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
-</Button>
+     
     </Paper>
   
             

@@ -19,6 +19,7 @@ import { useForm } from "react-hook-form";
 import { useParams } from 'react-router';
 import moment from 'moment'
 import swal from 'sweetalert';
+import { SettingsInputAntennaOutlined } from '@material-ui/icons';
 //import {BrowserRouter as Link} from 'react-router-dom';
 
 function Copyright() {
@@ -71,21 +72,21 @@ export default function ModifierPersonnel() {
   let { id } = useParams();
   const [employe,setEmploye]=useState({});
 
-  const [idemp,setIdemp] = React.useState(id);
-  const [nom,setNom] = React.useState('');
-  const [prenom,setPrenom] = React.useState('');
-  const [email,setEmail] = React.useState('');
-  const [Ntel,setNtel] = React.useState('');
-  const [adresse,setAdresse] = React.useState('');
-  const [sexe,setSexe] = React.useState('');
-  const [datenaissance,setDatenaissance] = React.useState('');
-  const [daterecrutement,setDaterecrutement] = React.useState('');
-  const [currency, setCurrency] = React.useState('');
+  const [idemp,setIdemp] = useState(id);
+  const [nom,setNom] = useState('');
+  const [prenom,setPrenom] = useState('');
+  const [email,setEmail] = useState('');
+  const [Ntel,setNtel] = useState('');
+  const [adresse,setAdresse] = useState('');
+  const [sexe,setSexe] = useState('');
+  const [datenaissance,setDatenaissance] = useState('');
+  const [daterecrutement,setDaterecrutement] = useState('');
+  const [currency, setCurrency] = useState('');
 
   useEffect(() => {
       console.log(' id coming for datatable',idemp)
     getEmploye(id).then( (employe) => {
-        console.log('  employe complet',id)
+        console.log('employe complet',id)
         setIdemp(id)
         setNom(employe.nom)
         setPrenom(employe.prenom)
@@ -172,7 +173,7 @@ export default function ModifierPersonnel() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Création d'un employé 
+          Update informations 
         </Typography>
         
     
@@ -184,7 +185,7 @@ export default function ModifierPersonnel() {
               <TextField
                 autoComplete="fname"
                 name="nom"
-                //variant="outlined"
+                variant="outlined"
                 label="Nom"
                 onChange={(event) => setNom(event.target.value)}
                 required
@@ -317,7 +318,7 @@ export default function ModifierPersonnel() {
             className={classes.submit}
           >
               
-              Ajouter un employé
+              Modifier Employé
           </Button>
           
         </form>

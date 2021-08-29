@@ -8,7 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import {listeEmployes} from '../../api/api';
+import {listeRecrutement} from '../../api/api';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import "../../css/ListeEmployes.css"
@@ -18,7 +18,16 @@ import Button from '@material-ui/icons/Edit';
 const columns = [
   { id: 'Nom', label: 'Nom', minWidth: 170 },
   { id: 'Prenom', label: 'Prenom', minWidth: 100 },
-  {id: 'Formation', label: 'Formation' },
+  { id: 'Profil', label: 'Profil', minWidth: 100 },
+  { id: 'datederecrutement', label: 'datederecrutement', minWidth: 100 },
+  { id: 'ObservationteamRH', label: 'ObservationteamRH', minWidth: 100 },
+  { id: 'ObservationteamDEV', label: 'ObservationteamDEV', minWidth: 100 },
+  { id: 'Niveau', label: 'Niveau', minWidth: 100 },
+  { id: 'Disponibilité', label: 'Disponibilité', minWidth: 100 },
+  { id: 'Décision', label: 'Décision', minWidth: 100 },
+  { id: 'Dateintegration', label: 'Dateintegration', minWidth: 100 },
+
+  
   /*{
     id: 'population',
     label: 'Population',
@@ -59,17 +68,18 @@ const useStyles = makeStyles({
 
 
         
-export default function ListeEmployes() {
+export default function ListeRecrutement() {
 
    
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
-  const [employees,setEmployees]= useState([]);
+  const [recrutement,setRecrutement]= useState([]);
   
    useEffect(async()=>
    {
-     const res=await listeEmployes();  
-     setEmployees(res);
+     const res=await listeRecrutement();  
+     console.log("resultat",res)
+     setRecrutement(res);
     },[]
    )
   
@@ -85,7 +95,7 @@ export default function ListeEmployes() {
                 <TableCell
                   key={column.id}
                   align={column.align}
-                  style={{ minWidth: column.minWidth }}
+                  style={{ minWidth: column.minWidth,color:'white',backgroundColor:'#5E6BB4' }}
                 >
                   {column.label}
                 </TableCell>
@@ -93,7 +103,7 @@ export default function ListeEmployes() {
             </TableRow>
           </TableHead>
           { <TableBody>
-            {employees.map(emp => {
+            {recrutement.map(emp => {
               return (
                 <TableRow hover role="checkbox" tabIndex={-1} key={emp._id}>
                   
@@ -108,20 +118,45 @@ export default function ListeEmployes() {
                       </TableCell>
                       
                       <TableCell>
-                        
+                        {emp.profil}
                                         
                       </TableCell>
-                    
-                
+                      <TableCell>
+                        {emp.datederecrutement}
+                                        
+                      </TableCell>
+                      <TableCell>
+                        {emp.observationteamRH}
+                                        
+                      </TableCell>
+                      <TableCell>
+                        {emp.observationteamDEV}
+                                        
+                      </TableCell>
+                      <TableCell>
+                        {emp.niveau}
+                                        
+                      </TableCell>
+                      <TableCell>
+                        {emp.disponibilité}
+                                        
+                      </TableCell>
+                      <TableCell>
+                        {emp.decision}
+                                        
+                      </TableCell>
+                      <TableCell>
+                        {emp.dateintegration}
+                                        
+                      </TableCell>
+                      
                 </TableRow>
               );
             })}
           </TableBody> }
         </Table>
       </TableContainer>
-      <Button variant="contained" color="primary" href="">
-  LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
-</Button>
+     
     </Paper>
   
             

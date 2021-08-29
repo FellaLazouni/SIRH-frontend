@@ -5,10 +5,15 @@ import { BrowserRouter as Router, Switch, Link, Route, BrowserRouter } from 'rea
 
 export default function App() {
   return (
+
+    
     <BrowserRouter>
+
       <Welcome />
+     
       {/* <Login/> */}
       {/* // switcher en le login et le welcome with state of logiIN user  */}
     </BrowserRouter>
   )
 }
+

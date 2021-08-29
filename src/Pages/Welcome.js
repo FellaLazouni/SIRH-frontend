@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
   },
+  
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(["width", "margin"], {
@@ -99,13 +100,13 @@ export default function Welcome() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar
+      {/* <AppBar
         position="fixed"
-        color="secondary"
+        // style={{ backgroundColor:'black' }}
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
-      >
+      > */}
         <Toolbar>
           <IconButton
             color="inherit"
@@ -118,17 +119,17 @@ export default function Welcome() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
+          {/* <Typography variant="h6" className={classes.title}>
             SIRH
-          </Typography>
-          <Link
+          </Typography> */}
+          {/* <Link
             to="/Login"
             style={{ color: "inherit", textDecoration: "inherit" }}
           >
             <IconButton color="inherit">Login</IconButton>
-          </Link>
+          </Link> */}
         </Toolbar>
-      </AppBar>
+      {/* </AppBar> */}
       {/* <main className={classes.content}>
       <Toolbar />
          <Typography
@@ -169,65 +170,75 @@ export default function Welcome() {
             <Link
               to="/ListeEmployes"
               style={{ color: "inherit", textDecoration: "inherit" }}
+             
             >
-              <ListItemIcon>
-                <InboxIcon />
+              <ListItemIcon >
+                <InboxIcon fontSize={'large'} />
+                {open &&<ListItemText primary="Gestion du personnel" style={{ marginLeft:10,alignItems:'center'}} />}
               </ListItemIcon>
-              {open &&<ListItemText primary="Staff management" />}
+
             </Link>
           </ListItem>
           <ListItem button>
             <Link
-              to="/AjouterEmployer"
+              to="/ListeLeaves"
               style={{ color: "inherit", textDecoration: "inherit" }}
             >
               <ListItemIcon>
-                <MenuIcon />
+                <MenuIcon  fontSize={'large'}/>
+              
+              {open &&<ListItemText style={{ marginLeft:10, alignItems:'center'}}>Gestion des départs</ListItemText>}
               </ListItemIcon>
-              {open &&<ListItemText>Leave management</ListItemText>}
             </Link>
+            
           </ListItem>
+         
           <ListItem button>
             <Link
-              to="/"
+              to="ListeRecrutement"
               style={{ color: "inherit", textDecoration: "inherit" }}
             >
               <ListItemIcon>
-                <MenuIcon />
+
+                <MenuIcon fontSize={'large'}/>
+                {open && (
+                
+                <ListItemText>Gestion des recrutements</ListItemText>
+              
+            )}
               </ListItemIcon>
-              {open && (
-                
-                  <ListItemText> Recruitment management</ListItemText>
-                
-              )}
+              
+            </Link>
+          
+          </ListItem>
+
+          <ListItem button>
+            <Link
+              to="/ListePromotion"
+              style={{ hover: "primary",color: "inherit", textDecoration: "inherit" }}
+            >
+              <ListItemIcon>
+                <InboxIcon fontSize={'large'} />
+              
+              <ListItemText>
+               { open && <ListItemText>Gestion des EAPs </ListItemText>}
+              </ListItemText>
+              </ListItemIcon>
             </Link>
           </ListItem>
 
           <ListItem button>
             <Link
-              to="/Promotion"
+              to="/ListeFormation"
               style={{ color: "inherit", textDecoration: "inherit" }}
             >
               <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
+                <InboxIcon fontSize={'large'} />
+             
               <ListItemText>
-               { open && <ListItemText>Promotion management </ListItemText>}
+               { open && <ListItemText> Gestion des formations </ListItemText>}
               </ListItemText>
-            </Link>
-          </ListItem>
-
-          <ListItem button>
-            <Link
-              to="/Formation"
-              style={{ color: "inherit", textDecoration: "inherit" }}
-            >
-              <ListItemIcon>
-                <InboxIcon />
               </ListItemIcon>
-              <ListItemText>
-               { open && <ListItemText> Training management </ListItemText>}
-              </ListItemText>
             </Link>
           </ListItem>
         </List>
