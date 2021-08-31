@@ -1,36 +1,67 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {useParams}from 'react-router-dom';
 import { Grid, Paper, Avatar, Typography, TextField, Button } from '@material-ui/core'
-import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
+// import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+// import Checkbox from '@material-ui/core/Checkbox';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { ajouterconge } from '../../api/api';
+import { ajouterconge, getEmploye } from '../../api/api';
 import * as yup from "yup";
+import styled from "styled-components";
+
+
 const Signup = () => {
+    // Berrr
     const paperStyle = { padding: '30px 20px', width: 300, margin: "20px auto" };
     const headerStyle = { margin: 0 };
     const avatarStyle = { backgroundColor: '#1bbd7e' };
     const marginTop = { marginTop: 5 };
     let {id_employe} = useParams();
+    const [employe, setEmploye] = useState();
 
     const schema = yup.object().shape({
-     nom: yup.string().required("full Name should be required please"),
-     prenom:yup.string().required("full Name should be required please"),
-      email: yup.string().required(),
-      typedeconge: yup.string().required(),
-      datedebutconge: yup.string().required(),
-      datefindeconge: yup.string().required(),
+
+      teamMember: yup.string().required(),
+      fonction: yup.string().required(),
+      direction: yup.string().required(),
+      typeDeConge: yup.string().required(),
+      dateDebutConge: yup.string().required(),
+      dateFinConge: yup.string().required(),
       duree: yup.number().integer().required(),
       interim: yup.string().required(),
     });
 
-      const { register, handleSubmit, formState:{ errors } } = useForm({resolver: yupResolver(schema)});
+    const Input= styled.input`
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc
+   `
+   
+   const Label = styled.label`
+   color: rgba(0,0,0,0.54);
+   font-size: 0.7rem;
+   font-weight: 400;
+   ` 
+
+    const { reset, register, handleSubmit, formState:{ errors } } = useForm({resolver: yupResolver(schema)});
+
+    useEffect(() => {
+        getEmploye(id_employe).then(employe =>{
+            setEmploye(employe);
+            console.log(employe)
+            reset({
+                nom: employe.nom,
+                prenom: employe.prenom
+            })
+        });
+    }, []);
+
     console.log('errors',errors)
       const x = async (data) => {
         console.log(data);
@@ -47,35 +78,40 @@ const Signup = () => {
                     <h2 style={headerStyle}>ASK For a leave</h2>
                     <Typography variant='caption' gutterBottom>Please fill this form ask for a leave</Typography>
                 </Grid>
+                 {employe && 
                    <form onSubmit={handleSubmit(x)}>
-                    <TextField 
-                    fullWidth 
-                    label='nom' 
-                    name='nom' 
-                    placeholder="Enterez votre nom" 
-                    {...register("nom")}>
-</TextField>
+                    <Label>Nom</Label>
+                    <Input {...register('nom')}  disabled/>
 
-                    <TextField 
-                    fullWidth label='prenom' 
-                    name='prenom' 
-                    placeholder="Enterez votre prenom" 
-                    {...register("prenom")}>
-                    
-                    </TextField>
+                    <Label>Prenom</Label>
+                    <Input {...register('prenom')} disabled/>
                     <TextField fullWidth 
-                    label='Email'
-                    name='email'
-                    placeholder="Enterez votre email" 
+                    label='teamMember'
+                    name='teamMember'
+                    placeholder="Enterez votre teamMember"
+                    {...register("teamMember")}/>
+                    
+                    <TextField fullWidth 
+                    label='fonction'
+                    name='fonction'
+                    placeholder="Enterez votre fonction" 
 
-                    {...register("email")}/>
+                    {...register("fonction")}/>
+                    
+                    <TextField fullWidth 
+                    label='direction'
+                    name='direction'
+                    placeholder="Enterez votre direction" 
+
+                    {...register("direction")}/>
+                  
                   
                     <FormControl component="fieldset" style={marginTop}>
                         <FormLabel component="legend">type de congé</FormLabel>
-                        <RadioGroup aria-label="typedeconge" 
-                        name="typedeconge" style={{ display: 'initial' }} 
+                        <RadioGroup aria-label="type de conge" 
+                        name="typeDeConge" style={{ display: 'initial' }} 
                         
-                        {...register("typedeconge")}>
+                        {...register("typeDeConge")}>
                             <FormControlLabel value="congeannuel" control={<Radio />} label="congeannuel" />
                             <FormControlLabel value="maternite" control={<Radio />} label="maternite" />
                             <FormControlLabel value="congesanssolde" control={<Radio />} label="congesanssolde" />
@@ -85,16 +121,16 @@ const Signup = () => {
                         </RadioGroup>
                     </FormControl>
                     <TextField fullWidth 
-                    label='datedebutconge'
-                    name='datedebutconge' 
+                    label='Date debut de conge'
+                    name='dateDebutConge' 
                     placeholder="entrez votre date debut conge"
-                    {...register("datedebutconge")}
+                    {...register("dateDebutConge")}
                      />
                     <TextField fullWidth 
-                    label='datefindeconge' 
-                    name='datefindeconge'
+                    label='Date fin de conge' 
+                    name='dateFinConge'
                      placeholder="entrez votre date de fin de conge" 
-                     {...register("datefindeconge")}/>
+                     {...register("dateFinConge")}/>
                     <TextField fullWidth variant="standard" helperText=""
                 
                 label="duree" 
@@ -124,7 +160,7 @@ const Signup = () => {
                     <Button type='submit' variant='contained' color='primary'>Confirm your leave</Button>
                     <input type="submit" />
                 </form>
-       
+                }
               
             </Paper>
         </Grid>

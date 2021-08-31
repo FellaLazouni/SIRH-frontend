@@ -28,7 +28,7 @@ import Controls from "../../components/controls/Controls";
 import useTable from "../../components/useTable";
 import {InputAdornment } from '@material-ui/core';
 import { Search } from "@material-ui/icons";
-
+import moment from 'moment';
 
 
 export default function ListeEmployes() {
@@ -67,6 +67,8 @@ export default function ListeEmployes() {
     //{ field: "sexe", headerName: "sexe", width: 100  },
    // { field: "datenaissance", headerName: "datenaissance", width: 150  },
     { field: "daterecrutement", headerName: "daterecrutement", width: 150  },
+    { field: "anciente", headerName: "anciente", width: 150  },
+
   
     {
       width: 150,
@@ -79,15 +81,6 @@ export default function ListeEmployes() {
      <DeleteIcon   className="fella" onClick={()=>DeleteEmploye(params.row._id)} />
        
         <EditIcon   className="fella" onClick={()=> history.push('/ModifierPersonnel/'+params.row._id)} />
-        {/* <AddIcon className="icone-add"
-                 onClick={() => history.push('/Ajouterleave/'+params.row._id)}/>
-        
-        <AddIcon onClick={() => history.push('/AjouterPromotion/'+params.row._id)}/>
-                    <AddIcon className="icone-add"
-                    onClick={() => history.push('/AjouterFormation/'+params.row._id)}/> */}
-      
-        
-     
 
         <ActionMenu  params={params} history={history} />
 
@@ -102,76 +95,6 @@ export default function ListeEmployes() {
     TblPagination,
     recordsAfterPagingAndSorting
   } = useTable(records, columns, filterFn);
-  
-    const columns1 = [
-      { field: 'id', headerName: 'ID', width: 90 },
-      {
-        field: 'firstName',
-        headerName: 'First name',
-        width: 150,
-        editable: true,
-      },
-      {
-        field: 'lastName',
-        headerName: 'Last name',
-        width: 150,
-        editable: true,
-      },
-      {
-        field: 'age',
-        headerName: 'Age',
-        type: 'number',
-        width: 110,
-        editable: true,
-      },
-      {
-        field: 'fullName',
-        headerName: 'Full name',
-        description: 'This column has a value getter and is not sortable.',
-        sortable: false,
-        width: 160,
-        valueGetter: (params) =>
-          `${params.getValue(params.id, 'firstName') || ''} ${
-            params.getValue(params.id, 'lastName') || ''
-          }`,
-      },
-    ];
-    
-    
-  
-    /*{
-      id: 'population',
-      label: 'Population',
-      minWidth: 170,
-      align: 'right',
-      format: (value) => value.toLocaleString('en-US'),
-    },
-    {
-      id: 'size',
-      label: 'Size\u00a0(km\u00b2)',
-      minWidth: 170,
-      align: 'right',
-      format: (value) => value.toLocaleString('en-US'),
-    },
-    {
-      id: 'density',
-      label: 'Density',
-      minWidth: 170,
-      align: 'right',
-      format: (value) => value.toFixed(2),
-    },*/
-    const rows = [
-      { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-      { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-      { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-      { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-      { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-      { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-      { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-      { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-      { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-    ];
-  
   
     const useStyles = makeStyles(theme => ({
       pageContent: {
@@ -210,6 +133,7 @@ export default function ListeEmployes() {
     const res = await listeEmployes();
     console.log("les employes sont::: ", res);
     setEmployees(res);
+    console.log("les employes sont::::::: ", employees);
     setFetchComplete(true)
   };
   const handleChangePage = (event, newPage) => {
@@ -232,7 +156,9 @@ export default function ListeEmployes() {
     setAnchorEl(event.currentTarget);
   }
 let i=0
-  const employeesRow= employees.map(emp=>({...emp,id:i++}))
+  const employeesRow= employees.map(emp=>({...emp,id:i++, 
+    anciente:((moment(new Date()).diff(emp.daterecrutement, 'days'))/365)*2
+  }))
 
 const addConge=()=>{
   alert(' hello fella')
@@ -272,97 +198,8 @@ const addConge=()=>{
         rows={employeesRow}
         columns={columns}
         pageSize={pageSize}
-        
-              //         <DeleteIcon
-              //           className="icone-delete"
-              //           onClick={() => DeleteEmploye(emp._id)}
-              //         />
-                    
-              //         <EditIcon className="icone-edit"
-              //           onClick={() => history.push('/ModifierPersonnel/'+emp._id)}/>
-              //         <AddIcon className="icone-add"
-              //           onClick={() => history.push('/Ajouterleave/'+emp._id)}/>
-              //           <AddIcon className="icone-add"
-              //           onClick={() => history.push('/AjouterPromotion/'+emp._id)}/>
-              //           <AddIcon className="icone-add"
-              //           onClick={() => history.push('/AjouterFormation/'+emp._id)}/>
-                    
-           
-
       />
     </div>
-   
-      
-      {/* {fetchComplete && employees &&
-      <TableContainer className={classes.container}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead >
-            <TableRow style={{opacity:1}}>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth,color:'white',backgroundColor:'#5E6BB4' }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {employees.length > 0 &&
-              employees.map((emp) => 
-              <RenderEmployeRow emp={emp} />
-              //</TableBody>{
-                
-
-              //   return (
-
-              //     <TableRow hover role="checkbox" tabIndex={-1} key={emp._id}  onClick={()=>{ setOnShow(true)}}>
-              //      { 
-              //      !onShow ? <>
-              //       <TableCell>{emp.nom}</TableCell>
-
-              //       <TableCell>{emp.prenom}</TableCell>
-
-              //       <TableCell>{emp.email}</TableCell>
-
-              //       <TableCell>{emp.Ntel}</TableCell>
-
-              //       <TableCell>{emp.adresse}</TableCell>
-
-              //       <TableCell>{emp.sexe}</TableCell>
-
-              //       <TableCell>{emp.datenaissance}</TableCell>
-
-              //       <TableCell>{emp.daterecrutement}</TableCell>
-
-              //       <TableCell>
-              //         <DeleteIcon
-              //           className="icone-delete"
-              //           onClick={() => DeleteEmploye(emp._id)}
-              //         />
-                    
-              //         <EditIcon className="icone-edit"
-              //           onClick={() => history.push('/ModifierPersonnel/'+emp._id)}/>
-              //         <AddIcon className="icone-add"
-              //           onClick={() => history.push('/Ajouterleave/'+emp._id)}/>
-              //           <AddIcon className="icone-add"
-              //           onClick={() => history.push('/AjouterPromotion/'+emp._id)}/>
-              //           <AddIcon className="icone-add"
-              //           onClick={() => history.push('/AjouterFormation/'+emp._id)}/>
-                    
-              //       </TableCell>
-              //       </> : <div></div>}
-              //     </TableRow>
-              //   );
-              // }
-              )}
-          </TableBody>
-        </Table>
-      </TableContainer>
-} */}
-
        {fetchComplete && employees.length < 1 && <div><p>Aucun employé, pour ajouter cliquez sur le bouton ajouter</p></div>}
       
     </Paper>
