@@ -13,41 +13,53 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import "../../css/ListeEmployes.css";
 import { supprimee } from "../../api/api";
-import { Button, Link, Menu , MenuItem } from "@material-ui/core";
+import { Button, Link, Menu, MenuItem } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import ModifierPersonnel from "./ModifierPersonnel";
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import AddIcon from '@material-ui/icons/Add';
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import AddIcon from "@material-ui/icons/Add";
 import RenderEmployeRow from "./RenderEmployeRow";
-import { DataGrid } from '@material-ui/data-grid';
-import {DeleteEmploye}from "../../api/api";
-import MenuIcon from  '@material-ui/icons/Menu';
+import { DataGrid, GridToolbarContainer, GridToolbarExport } from "@material-ui/data-grid";
+import { DeleteEmploye } from "../../api/api";
+import MenuIcon from "@material-ui/icons/Menu";
 import PageHeader from "../../components/PageHeader";
-import PeopleOutlineTwoToneIcon from '@material-ui/icons/PeopleOutlineTwoTone';
+import PeopleOutlineTwoToneIcon from "@material-ui/icons/PeopleOutlineTwoTone";
 import Controls from "../../components/controls/Controls";
 import useTable from "../../components/useTable";
-import {InputAdornment } from '@material-ui/core';
+import { InputAdornment } from "@material-ui/core";
 import { Search } from "@material-ui/icons";
-import moment from 'moment';
-
+import moment from "moment";
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 export default function ListeEmployes() {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [filterFn, setFilterFn] = useState({ fn: items => { return items; } })
-  const [records, setRecords] = useState()
-  
-  
-  const handleSearch = e => {
+  const [filterFn, setFilterFn] = useState({
+    fn: (items) => {
+      return items;
+    },
+  });
+
+  const [records, setRecords] = useState();
+
+  const [keyword, setKeyword] = useState("");
+
+  const handleSearch = (e) => {
+    
     let target = e.target;
-    setFilterFn({
-        fn: items => {
-            if (target.value == "")
-                return items;
-            else
-                return items.filter(x => x.nom.toLowerCase().includes(target.value))
-        }
-    })
-  }
+    
+    setKeyword(e?.target?.value || "")
+
+    // setFilterFn({
+    //   fn: (items) => {
+    //     if (target.value == "") return items;
+    //     else
+    //       return items.filter((x) =>
+    //         x.nom.toLowerCase().includes(target.value)
+    //       );
+    //   },
+    // });
+    
+  };
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -59,17 +71,18 @@ export default function ListeEmployes() {
     { field: "nom", headerName: "Nom", width: 150 },
     { field: "prenom", headerName: "Prenom", width: 150 },
     // { field: "Fonction", headerName: "Fonction", width: 150 },
-    
-    { field: "email", headerName: "Email", width: 150 },
-    // { field: "Departement", headerName: "Departement", width: 150 },
-    { field: "Ntel", headerName: "Ntel",  width: 150  },
-    { field: "adresse", headerName: "adresse", width: 150  },
-    //{ field: "sexe", headerName: "sexe", width: 100  },
-   // { field: "datenaissance", headerName: "datenaissance", width: 150  },
-    { field: "daterecrutement", headerName: "daterecrutement", width: 150  },
-    { field: "anciente", headerName: "anciente", width: 150  },
 
-  
+    { field: "email", headerName: "Email", width: 150 },
+    { field: "adresse", headerName: "Adresse", width: 150 },
+    { field: "fonction", headerName: "Fonction", width: 150 },
+    { field: "departement", headerName: "Département", width: 170 },
+    // { field: "Ntel", headerName: "Ntel", width: 150 },
+    
+    //{ field: "sexe", headerName: "sexe", width: 100  },
+     { field: "datenaissanceformat", headerName: "Datenaissance", width: 170  },
+    { field: "daterecrutementformat", headerName: "Daterecrutement", width: 170 },
+    // { field: "anciente", headerName: "anciente", width: 150 },
+
     {
       width: 150,
       field: "deletaction",
@@ -77,30 +90,50 @@ export default function ListeEmployes() {
       disableClickEventBubbling: true,
       renderCell: (params) => {
         return (
-        <div>
-     <DeleteIcon   className="fella" onClick={()=>DeleteEmploye(params.row._id)} />
-       
-        <EditIcon   className="fella" onClick={()=> history.push('/ModifierPersonnel/'+params.row._id)} />
+          <div>
+            <DeleteIcon
+              className="fella"
+              onClick={() => DeleteEmploye(params.row._id)}
+            />
 
-        <ActionMenu  params={params} history={history} />
-
-        
-        </div>)
-      }}
-      
-  ]
-  const {
-    TblContainer,
-    TblHead,
-    TblPagination,
-    recordsAfterPagingAndSorting
-  } = useTable(records, columns, filterFn);
-  
-    const useStyles = makeStyles(theme => ({
-      pageContent: {
-          margin: theme.spacing(5),
-          padding: theme.spacing(3)
+            <EditIcon
+              className="fella"
+              onClick={() =>
+                history.push("/ModifierPersonnel/" + params.row._id)
+              }
+             
+            />
+ <VisibilityIcon/>
+           
+          </div>
+        );
       },
+    },
+    {
+      width: 170,
+      field: "menuaction",
+      headerName: "Assignation",
+      disableClickEventBubbling: true,
+      renderCell: (params) => {
+        return (
+          <div>
+            
+            <ActionMenu params={params} history={history} />
+          </div>
+        );
+      },
+    },
+    
+  ];
+
+  const { TblContainer, TblHead, TblPagination, recordsAfterPagingAndSorting } =
+    useTable(records, columns, filterFn);
+
+  const useStyles = makeStyles((theme) => ({
+    pageContent: {
+      margin: theme.spacing(5),
+      padding: theme.spacing(3),
+    },
     root: {
       width: "100%",
       marginTop: "50px",
@@ -109,22 +142,20 @@ export default function ListeEmployes() {
       maxHeight: 440,
     },
     newButton: {
-      position: 'absolute',
-      right: '20px'
-    
-  },
-  searchInput: {
-    width: '75%'
-},
-
-}));
+      position: "absolute",
+      right: "20px",
+    },
+    searchInput: {
+      width: "55%",
+    },
+  }));
   const history = useHistory();
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [employees, setEmployees] = useState([]);
   const [fetchComplete, setFetchComplete] = useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const pageSize = 8
+  const pageSize = 8;
   useEffect(() => {
     fetchEmployes();
   }, []);
@@ -134,8 +165,9 @@ export default function ListeEmployes() {
     console.log("les employes sont::: ", res);
     setEmployees(res);
     console.log("les employes sont::::::: ", employees);
-    setFetchComplete(true)
+    setFetchComplete(true);
   };
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -151,65 +183,81 @@ export default function ListeEmployes() {
       fetchEmployes();
     });
   };
-  const ListeAction = (event,id)=>
-  {
-    setAnchorEl(event.currentTarget);
-  }
-let i=0
-  const employeesRow= employees.map(emp=>({...emp,id:i++, 
-    anciente:((moment(new Date()).diff(emp.daterecrutement, 'days'))/365)*2
-  }))
 
-const addConge=()=>{
-  alert(' hello fella')
-}
+  const ListeAction = (event, id) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  let i = 0;
+
+  const employeesRow = employees.filter(emp => emp?.nom.toLowerCase().includes(keyword.toLowerCase())).map((emp) => ({
+    ...emp,
+    id: i++,
+    anciente: (moment(new Date()).diff(emp.daterecrutement, "days") / 365) * 2,
+    datenaissanceformat: moment(emp.datenaissance).format("YYYY-MM-DD"),
+    daterecrutementformat:moment(emp.daterecrutement).format("YYYY-MM-DD"),
+  }));
+
+  const addConge = () => {
+    alert(" hello fella");
+  };
   return (
     <view>
-      
       <PageHeader
-                title="Liste des employés"
-                subTitle="personnels de l'entreprise"
-                icon={<PeopleOutlineTwoToneIcon fontSize="large" />}
-            /> 
-            <Controls.Input
-                        label="Search Employees"
-                        className={classes.searchInput}
-                        InputProps={{
-                            startAdornment: (<InputAdornment position="start">
-                                <Search />
-                            </InputAdornment>)
-                        }}
-                        onChange={handleSearch}
-                    />
-
-<Controls.Button
-                        text="Ajouter un employé"
-                        variant="outlined"
-                        startIcon={<AddIcon />}
-                        className={classes.newButton}
-                        onClick={() => {history.push('/AjouterEmployer')}}
-                        // onClick={() => { setOpenPopup(true); setRecordForEdit(null); }}
-                    />
-                  <br>
-                  </br>
-    <Paper className={classes.root}>
-    <div style={{ height: 130+pageSize*53, width: '100%' }}>
-      <DataGrid
-        rows={employeesRow}
-        columns={columns}
-        pageSize={pageSize}
+        title="Liste des employés"
+        subTitle="personnels de l'entreprise"
+        icon={<PeopleOutlineTwoToneIcon fontSize="large" />}
       />
-    </div>
-       {fetchComplete && employees.length < 1 && <div><p>Aucun employé, pour ajouter cliquez sur le bouton ajouter</p></div>}
-      
-    </Paper>
-    
-   
-  </view>
-  
+      <Controls.Input
+        label="Search Employees"
+        className={classes.searchInput}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <Search onChange={handleSearch} />
+            </InputAdornment>
+          ),
+        }}
+        onChange={handleSearch}
+      />
+
+      <Controls.Button
+        text="Ajouter un employé"
+        variant="outlined"
+        startIcon={<AddIcon />}
+        className={classes.newButton}
+        onClick={() => {
+          history.push("/AjouterEmployer");
+        }}
+        // onClick={() => { setOpenPopup(true); setRecordForEdit(null); }}
+      />
+      <br></br>
+      <Paper className={classes.root}>
+        <div style={{ height: 130 + pageSize * 53, width: "100%" }}>
+          <DataGrid
+            rows={employeesRow}
+            columns={columns}
+            filterModel={{
+              items: [
+                { columnField: "nom", operatorValue: "contains", value: "" },
+              ],
+            }}
+            pageSize={pageSize}
+            components={{
+              Toolbar: CustomToolbar,
+            }}
+          />
+        </div>
+        {fetchComplete && employees.length < 1 && (
+          <div>
+            <p>Aucun employé, pour ajouter cliquez sur le bouton ajouter</p>
+          </div>
+        )}
+      </Paper>
+    </view>
   );
 }
-function ActionMenu({history,params}) { 
+function ActionMenu({ history, params }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -222,13 +270,10 @@ function ActionMenu({history,params}) {
 
   return (
     <>
-    
       {/* <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
       </Button> */}
-      <MenuIcon  onClick={handleClick} />
+      <MenuIcon onClick={handleClick} />
 
-
-      
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
@@ -236,11 +281,30 @@ function ActionMenu({history,params}) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={() => history.push('/Ajouterleave/'+params.row._id)}>Leave</MenuItem>
-        <MenuItem onClick={()=> history.push('/AjouterPromotion/'+params.row._id)}>Promotion</MenuItem>
-        <MenuItem onClick={()=>history.push('/AjouterFormation/'+params.row._id)}> Formation</MenuItem>
+        <MenuItem
+          onClick={() => history.push("/AjouterLeave/" + params.row._id)}
+        >
+          Leave
+        </MenuItem>
+        <MenuItem
+          onClick={() => history.push("/AjouterPromotion/" + params.row._id)}
+        >
+          Promotion
+        </MenuItem>
+        <MenuItem
+          onClick={() => history.push("/AjouterFormation/" + params.row._id)}
+        >
+          Formation
+        </MenuItem>
       </Menu>
     </>
   );
+}
 
+export function CustomToolbar() {
+  return (
+    <GridToolbarContainer>
+      <GridToolbarExport />
+    </GridToolbarContainer>
+  );
 }

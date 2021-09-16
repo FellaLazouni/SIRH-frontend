@@ -43,8 +43,8 @@ const Signup = () => {
                     <Avatar style={avatarStyle}>
                         {/* <AddCircleOutlineOutlinedIcon /> */}
                     </Avatar>
-                    <h2 style={headerStyle}>ASK For a leave</h2>
-                    <Typography variant='caption' gutterBottom>Please fill this form ask for a leave</Typography>
+                    <h2 style={headerStyle}>ASK For a Promotion</h2>
+                    <Typography variant='caption' gutterBottom>Please fill this form to ask for a promotion</Typography>
                 </Grid>
 
                    <form onSubmit={handleSubmit(x)}>
@@ -96,8 +96,8 @@ const Signup = () => {
                         <br>
                         </br>
                     </div>
-                    <Button type='submit' variant='contained' color='primary'>Promotion</Button>
-                    <input type="submit" />
+                    <Button type='submit' variant='contained' color='primary'>Demander Promotion</Button>
+                    
                 </form>
        
               

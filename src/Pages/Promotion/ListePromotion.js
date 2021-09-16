@@ -8,13 +8,15 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import {listePromotion} from '../../api/api';
+import {listePromotion,modifierpromotion} from '../../api/api';
 import { supprimerpromotion } from '../../api/api';
 import "../../css/ListeEmployes.css"
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import {useTheme } from "@material-ui/core/styles";
-
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import CancelIcon from '@material-ui/icons/Cancel';
+import "../../css/icon.css"
 
 
 
@@ -31,6 +33,7 @@ import useTable from "../../components/useTable";
 import {InputAdornment } from '@material-ui/core';
 import { Search } from "@material-ui/icons";
 import moment from 'moment';
+import clsx from 'clsx';
 
 
 
@@ -207,13 +210,27 @@ export default function ListePromotion() {
     setAnchorEl(null);
   };
   const columns = [
-    
-        { id: 'dateeffet', label: 'dateeffet', minWidth: 170 },
-        { id: 'observation', label: 'observation', minWidth: 100 },
-        { id: 'document', label: 'document', minWidth: 100 },
-        { id: 'id_poste', label: 'id_poste', minWidth: 100 },
-        { id: 'created_at', label: 'created_at', minWidth: 100 },
-        { id: 'created_by', label: 'created_by', minWidth: 100 },
+        // { field: 'nom', headerName: 'nom', width: 150 },
+        // { field: 'prenom', headerName: 'prenom', width: 150 },
+        { field: 'dateeffetformat', headerName: 'Date effet', width: 150 },
+        
+        { field: 'document', headerName: 'Document', width: 150 },
+        { field: 'id_poste', headerName: 'Poste', width: 150 },
+        { field: 'created_at', headerName: 'Contributions annuelle ', width: 150 },
+        { field: 'created_by', headerName: 'Experience', width: 150 },
+        { field: 'observation', headerName: 'Observation', width: 150 },
+        {
+          field: 'status',
+         
+          width: 150,
+          cellClassName: (params) =>
+          
+            clsx('super-app', {
+              yellow: params.value ==='En cours',
+              red: params.value ==="Accepté",
+              green: params.value ==="Refusé"
+            }),
+        },
     {
       width: 150,
       field: "deletaction",
@@ -222,10 +239,12 @@ export default function ListePromotion() {
       renderCell: (params) => {
         return (
         <div>
-     <DeleteIcon   className="fella" onClick={()=>DeletePromotion(params.row._id)} />
+     {/* <DeleteIcon   className="delete_icon" onClick={()=>DeletePromotion(params.row._id)} /> */}
        
-        <EditIcon   className="fella" onClick={()=> history.push('/ModifierPromotion/'+params.row._id)} />
+        <CheckCircleIcon className="validate_icon" onClick={()=>validate(params.row._id)} />
+       <CancelIcon className="refuse_icon" onClick={()=>refuse(params.row._id)}/>
 
+       
         
         </div>)
       }}
@@ -244,8 +263,27 @@ export default function ListePromotion() {
           padding: theme.spacing(3)
       },
     root: {
+      '& .super-app.yellow': {
+        
+        color: '#ff8e05',
+        fontWeight: '600',
+      },
+      '& .super-app.red': {
+        
+        color: '#0CF916',
+        fontWeight: '600',
+      },
+      '& .super-app.green': {
+        
+        color: '#FE0325',
+        fontWeight: '600',
+      },
+
+      
       width: "100%",
       marginTop: "50px",
+
+
     },
     container: {
       maxHeight: 440,
@@ -274,7 +312,15 @@ export default function ListePromotion() {
   const fetchPromotions = async () => {
     const res = await listePromotion();
     console.log("les promotion sont::: ", res);
-    setPromotions(res);
+    setPromotions(res.map((promotion, index ) => {
+      return {
+        ...promotion,
+        id: index, 
+        nom: promotion?.employe[0]?.nom,
+        prenom: promotion?.employe[0]?.prenom,
+        dateeffetformat:moment(promotion.dateeffet).format("YYYY-MM-DD"),
+        };
+      }));
     setFetchComplete(true)
   };
   const handleChangePage = (event, newPage) => {
@@ -292,14 +338,28 @@ export default function ListePromotion() {
       fetchPromotions();
     });
   };
+  const validate =(id) =>{
+  
+    modifierpromotion({status: 'Accepté'},id).then(()=> {
+
+      fetchPromotions();
+    }
+    
+    )
+  };
+  const refuse =(id) =>{
+    modifierpromotion({status: 'Refusé' },id).then(()=> {
+      fetchPromotions();
+    }
+    
+    )
+  };
+  
   const ListeAction = (event,id)=>
   {
     setAnchorEl(event.currentTarget);
   }
-let i=0
-  const promotionsRow= promotions.map(emp=>({...emp,id:i++, 
-   
-  }))
+  
 
   
   return (
@@ -334,7 +394,7 @@ let i=0
     <Paper className={classes.root}>
     <div style={{ height: 130+pageSize*53, width: '100%' }}>
       <DataGrid
-        rows={promotionsRow}
+        rows={promotions}
         columns={columns}
         pageSize={pageSize}
       />

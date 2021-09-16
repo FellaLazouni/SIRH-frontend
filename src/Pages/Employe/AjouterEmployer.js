@@ -563,6 +563,7 @@ import Container from '@material-ui/core/Container';
 import {ajouter} from '../../api/api';
 import Menu from '@material-ui/icons/Menu';
 import { List, MenuList } from '@material-ui/core';
+import GroupAddSharpIcon from '@material-ui/icons/GroupAddSharp';
 import { useHistory } from 'react-router-dom';
 //import {BrowserRouter as Link} from 'react-router-dom';
 
@@ -588,7 +589,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -599,17 +600,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const currencies = [
-  {
-    value: 'Homme',
-    label: 'Homme',
-  },
-  {
-    value: 'Femme',
-    label: 'Femme',
-  },
-  
-];
 
 export default function SignUp() {
   const classes = useStyles();
@@ -617,12 +607,16 @@ export default function SignUp() {
   const [nom,setNom] = React.useState('');
   const [prenom,setPrenom] = React.useState('');
   const [email,setEmail] = React.useState('');
-  const [Ntel,setNtel] = React.useState('');
+ 
+  const [fonction,setFonction]=React.useState('');
+  const [departement,setDepartement]=React.useState('');
   const [adresse,setAdresse] = React.useState('');
-  const [sexe,setSexe] = React.useState('');
+ 
   const [datenaissance,setDatenaissance] = React.useState('');
   const [daterecrutement,setDaterecrutement] = React.useState('');
-  const [currency, setCurrency] = React.useState('');
+  const [userName,setUserName]=React.useState('');
+  const [password,setPassword]=React.useState('');
+  
 
   const history = useHistory();
 
@@ -637,15 +631,15 @@ export default function SignUp() {
   const handleEmailChange = (event)=>{ 
     setEmail(event.target.value)
   }
-
-  const handleNtelChange = (event)=>{ 
-    setNtel(event.target.value)
-  }
-
   const handleAdresseChange = (event)=>{ 
     setAdresse(event.target.value)
   }
-
+  const handleFonctionChange = (event)=>{ 
+    setFonction(event.target.value)
+  }
+  const handleDepartementChange = (event)=>{ 
+    setDepartement(event.target.value)
+  }
   const handleDatenaissanceChange = (event)=>{ 
     setDatenaissance(event.target.value)
   }
@@ -653,29 +647,31 @@ export default function SignUp() {
   const handleDaterecrutementChange = (event)=>{ 
     setDaterecrutement(event.target.value)
   }
+  const handleUserNameChange = (event)=>{ 
+    setUserName(event.target.value)
+  }
+  const handlePasswordChange = (event)=>{ 
+    setPassword(event.target.value)
+  }
 
   const handleAjouter = (event) =>{
     event.preventDefault();
-    ajouter(nom,prenom,email,Ntel,adresse,sexe,datenaissance,daterecrutement).then(() => {
+    ajouter(nom,prenom,email,adresse,fonction,departement,datenaissance,daterecrutement,userName,password).then(() => {
       history.push('/ListeEmployes')
     });
     
   }
 
-  const handleSexeChange = (event) => {
-    setSexe(event.target.value);
-  };
 
-  const handleCChange = (event) => {
-    setCurrency(event.target.value);
-  };
+  
+  
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <GroupAddSharpIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Création d'un employé 
@@ -720,21 +716,7 @@ export default function SignUp() {
                 autoComplete="email"
               />
             </Grid>
-            
-
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                onChange={handleNtelChange}
-                name="number"
-                label="Numéro de téléphone"
-                type="text"
-                id="Ntel"
-                autoComplete="Number"
-              />
-            </Grid>
+           
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -750,23 +732,6 @@ export default function SignUp() {
               />
             </Grid>
 
-            <Grid>
-            <TextField
-          id="standard-select-currency"
-          select
-          label="Select"
-          value={currency}
-          onChange={handleSexeChange}
-          helperText="Choisissez votre sexe"
-        >
-          {currencies.map((option) => (
-            <MenuList key={option.value} value={option.value}>
-              {option.label}
-            </MenuList>
-          ))}
-        </TextField>
-        </Grid>
-
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -775,7 +740,7 @@ export default function SignUp() {
                 onChange={handleDatenaissanceChange}
                 name="Date de Naissance"
                 label="Date de Naissance"
-                type="Date"
+                type="text"
                 id="DatedeNaissance"
                 autoComplete="current-DatedeNaissance"
                 
@@ -790,14 +755,66 @@ export default function SignUp() {
                 onChange={handleDaterecrutementChange}
                 name="Date de Recrutement"
                 label="Date de Recrutement"
-                type="Date"
+                type="text"
                 id="DatedeRecrutement"
                 autoComplete="current-DatedeNaissance"
                 
               />
             </Grid>
-            
-            
+            <Grid item xs={12} sm={6}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                onChange={handleFonctionChange}
+                name="fonction"
+                label="Fonction"
+                type="text"
+                id="fonction"
+                autoComplete="fonction"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                onChange={handleDepartementChange}
+                name="departement"
+                label="Département"
+                type="text"
+                id="dpartement"
+                autoComplete="departement"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                onChange={handleUserNameChange}
+                name="userName"
+                label="userName"
+                type="text"
+                id="userName"
+                autoComplete="userName"
+                
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                onChange={handlePasswordChange}
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="password"
+                
+              />
+            </Grid>
           </Grid>
           <Button
           

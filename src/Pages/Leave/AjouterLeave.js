@@ -13,6 +13,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { ajouterconge, getEmploye } from '../../api/api';
 import * as yup from "yup";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 
 const Signup = () => {
@@ -50,7 +51,7 @@ const Signup = () => {
    ` 
 
     const { reset, register, handleSubmit, formState:{ errors } } = useForm({resolver: yupResolver(schema)});
-
+    const history = useHistory();
     useEffect(() => {
         getEmploye(id_employe).then(employe =>{
             setEmploye(employe);
@@ -65,8 +66,12 @@ const Signup = () => {
     console.log('errors',errors)
       const x = async (data) => {
         console.log(data);
+        const res = await ajouterconge({...data, id_employe,})
         
-        await ajouterconge({...data, id_employe})
+        // history.push('/Quitus/:congesId')
+        console.log('enregistrement congé',res)
+        history.push({pathname:"/Quitus", search:`?congesId=${res?.conge?._id}`})
+        
       }
     return (
         <Grid>
@@ -158,7 +163,7 @@ const Signup = () => {
                         </br>
                     </div>
                     <Button type='submit' variant='contained' color='primary'>Confirm your leave</Button>
-                    <input type="submit" />
+                  
                 </form>
                 }
               

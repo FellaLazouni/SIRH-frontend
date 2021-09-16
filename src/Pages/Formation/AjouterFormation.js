@@ -90,7 +90,7 @@ const Signup = () => {
                         </br>
                     </div>
                     <Button type='submit' variant='contained' color='primary'>Confirmer</Button>
-                    <input type="submit" />
+                  
                 </form>
        
               

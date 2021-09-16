@@ -3,12 +3,13 @@ import { TextField } from '@material-ui/core';
 
 export default function Input(props) {
 
-    const { name, label, value,error=null, onChange, ...other } = props;
+    const { nom, label, value,error=null, onChange, ...other } = props;
+
     return (
         <TextField
             variant="outlined"
             label={label}
-            name={name}
+            name={nom}
             value={value}
             onChange={onChange}
             {...other}

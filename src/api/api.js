@@ -50,6 +50,24 @@ export const listeEmployes = () => {
         }
     )
 }
+export const listeEmployes2 = () => {
+        let response; 
+      fetch(`${api_root}/employe/nombre`, {
+        method:'GET',
+        //body: reqBody,
+        headers: {
+            'Content-Type': 'Application/json'         
+        }
+    
+    }).then(
+         (res)=>{
+           
+            console.log("resultat",res.json());
+            
+            return   res.json; 
+        }
+    )
+}
 
 export const supprimee = (id) => {
     
@@ -70,17 +88,21 @@ export const supprimee = (id) => {
 }
 
 
-export const ajouter = (nom,prenom,email,Ntel,adresse,sexe,datenaissance,daterecrutement) => {
+export const ajouter = (nom,prenom,email,adresse,fonction,departement,datenaissance,daterecrutement,userName,password) => {
     const reqBody = JSON.stringify({
         
         nom : nom,
         prenom: prenom,
         email: email,
-        Ntel: Ntel,
+       
         adresse: adresse,
-        sexe: sexe,
+        fonction: fonction,
+        departement: departement,
+
         datenaissance: datenaissance,
-        daterecrutement: daterecrutement
+        daterecrutement: daterecrutement,
+        userName: userName,
+        password: password
     })
     
            
@@ -257,27 +279,33 @@ export const ajouterconge = async(data) => {
     //     // interim: interim
     // })
     const reqBody = JSON.stringify(data)
-    
-           
-    await fetch(`${api_root}/conges`, {
-        method:'POST',
-        body: reqBody,
-        headers: {
-            'Content-Type': 'Application/json'
-            
-            
-        }
-    
-    }).then(
-        (res)=>{
-            console.log("KKKKKKKKKKK",res); 
-            return res.json(); 
-            
-            
-        }
+    return new  Promise((resolve,reject) => { 
+        fetch(`${api_root}/conges`, {
+            method:'POST',
+            body: reqBody,
+            headers: {
+                'Content-Type': 'Application/json'
+                
+                
+            }
         
-    )
+        }).then(
+            (res)=>{
+                console.log("KKKKKKKKKKK",res); 
+                resolve(res.json()); 
+                
+                
+            }
+            
+        ).catch(
+            error => console.log(error)
+        )
 
+    
+
+    })
+           
+    
 }
 export const listeLeaves = () => { 
     return fetch(`${api_root}/conges`, {
@@ -410,6 +438,34 @@ export const getPromotion = (id) => {
         }
     )
 }
+export const modifierpromotion = async(promotionUpdated,id) => {
+
+    console.log('id ===> ',id)
+    console.log(promotionUpdated)
+    const reqBody = JSON.stringify(promotionUpdated)
+    let response;
+           
+   await  fetch(`${api_root}/promotion/${id}`, {
+        method:'PUT',
+        body: reqBody,
+        headers: {
+            'Content-Type': 'Application/json'
+            
+            
+        }
+        
+    
+    }).then(
+        (res)=>{
+            
+            console.log("Raho yfetchi",res); 
+            response= res;
+            
+            
+        }
+    )
+return response
+}
 export const supprimerpromotion = (id) => {
     
         
@@ -488,6 +544,367 @@ export const getFormation = (id) => {
     return fetch(`${api_root}/formation/${id}`, {
         method:'GET',
         //body: reqBody,
+        headers: {
+            'Content-Type': 'Application/json'
+            
+        }
+    
+    }).then(
+        (res)=>{
+            return res.json(); 
+        }
+    )
+}
+export const modifierformation = async(formationUpdated,id) => {
+
+    console.log('id ===> ',id)
+    console.log(formationUpdated)
+    const reqBody = JSON.stringify(formationUpdated)
+    let response;
+           
+   await  fetch(`${api_root}/formation/${id}`, {
+        method:'PUT',
+        body: reqBody,
+        headers: {
+            'Content-Type': 'Application/json'
+            
+            
+        }
+        
+    
+    }).then(
+        (res)=>{
+            
+            console.log("Raho yfetchi",res); 
+            response= res;
+            
+            
+        }
+    )
+return response
+}
+export const ajouterdemanderecrutement = async(data) => {
+    console.log("++++++data",data)
+    const reqBody = JSON.stringify(data)
+    await fetch(`${api_root}/ProfilRech`, {
+        method:'POST',
+        body: reqBody,
+        headers: {
+            'Content-Type': 'Application/json'
+        }
+    }).then(
+        (res)=>{
+            console.log("KKKKKKKKKKK",res); 
+            return res.json(); 
+        }
+    )
+}
+
+export const ajoutergrad = async (data) => {
+    const reqBody = JSON.stringify(data)       
+    return fetch(`${api_root}/grad`, {
+        method:'POST',
+        body: reqBody,
+        headers: {
+            'Content-Type': 'Application/json'
+            
+            
+        }
+    
+    }).then(
+        (res)=>{
+            console.log("KKKKKKKKKKK",res); 
+            return res.json(); 
+            
+            
+        }
+        
+    )
+
+}
+export const listeGrad = () => { 
+    return fetch(`${api_root}/grad`, {
+        method:'GET',
+        //body: reqBody,
+        headers: {
+            'Content-Type': 'Application/json'         
+        }
+    
+    }).then(
+        (res)=>{
+            console.log("resultat",res)
+            return res.json(); 
+        }
+    )
+}
+export const getGrad = (id) => {
+    return fetch(`${api_root}/grad/${id}`, {
+        method:'GET',
+        //body: reqBody,
+        headers: {
+            'Content-Type': 'Application/json'
+            
+        }
+    
+    }).then(
+        (res)=>{
+            return res.json(); 
+        }
+    )
+}
+export const supprimergrad = (id) => {
+    
+        
+    return fetch(`${api_root}/grad/${id}`, {
+        method:'DELETE',
+        
+        headers: {
+            'Content-Type': 'Application/json'
+            
+        }
+    
+    }).then(
+        (res)=>{
+            return res.json(); 
+        }
+    )
+}
+export const ajouterservice = () => async(data) => {
+    console.log("++++++data",data)
+    const reqBody = JSON.stringify(data)
+    
+           
+    await fetch(`${api_root}/service`, {
+        method:'POST',
+        body: reqBody,
+        headers: {
+            'Content-Type': 'Application/json'
+            
+            
+        }
+    
+    }).then(
+        (res)=>{
+            console.log("KKKKKKKKKKK",res); 
+            return res.json(); 
+            
+            
+        }
+        
+    )
+
+}
+export const listeService = () => { 
+    return fetch(`${api_root}/service`, {
+        method:'GET',
+        //body: reqBody,
+        headers: {
+            'Content-Type': 'Application/json'         
+        }
+    
+    }).then(
+        (res)=>{
+            console.log("resultat",res)
+            return res.json(); 
+        }
+    )
+}
+export const getService = (id) => {
+    return fetch(`${api_root}/service/${id}`, {
+        method:'GET',
+        //body: reqBody,
+        headers: {
+            'Content-Type': 'Application/json'
+            
+        }
+    
+    }).then(
+        (res)=>{
+            return res.json(); 
+        }
+    )
+}
+export const supprimerservice = (id) => {
+    
+        
+    return fetch(`${api_root}/service/${id}`, {
+        method:'DELETE',
+        
+        headers: {
+            'Content-Type': 'Application/json'
+            
+        }
+    
+    }).then(
+        (res)=>{
+            return res.json(); 
+        }
+    )
+}
+
+export const listeDemandes = () => { 
+    return fetch(`${api_root}/ProfilRech`, {
+        method:'GET',
+        //body: reqBody,
+        headers: {
+            'Content-Type': 'Application/json'         
+        }
+    
+    }).then(
+        (res)=>{
+            return res.json(); 
+        }
+    )
+}
+export const getlisteDemandes = (id) => {
+    return fetch(`${api_root}/ProfilRech/${id}`, {
+        method:'GET',
+        //body: reqBody,
+        headers: {
+            'Content-Type': 'Application/json'
+            
+        }
+    
+    }).then(
+        (res)=>{
+            return res.json(); 
+        }
+    )
+}
+export const modifierlistedemandes = async(listedemandesUpdated,id) => {
+
+    console.log('id ===> ',id)
+    console.log(listedemandesUpdated)
+    const reqBody = JSON.stringify(listedemandesUpdated)
+    let response;
+           
+   await  fetch(`${api_root}/profilRech/${id}`, {
+        method:'PUT',
+        body: reqBody,
+        headers: {
+            'Content-Type': 'Application/json'
+            
+            
+        }
+        
+    
+    }).then(
+        (res)=>{
+            
+            console.log("Raho yfetchi",res); 
+            response= res;
+            
+            
+        }
+    )
+return response
+}
+export const supprimerdemanderecrutement = (id) => {
+    
+        
+    return fetch(`${api_root}/profilRech/${id}`, {
+        method:'DELETE',
+        
+        headers: {
+            'Content-Type': 'Application/json'
+            
+        }
+    
+    }).then(
+        (res)=>{
+            return res.json(); 
+        }
+    )
+}
+export const ajouterdivers = async(data) => {
+    console.log("++++++data",data)
+    const reqBody = JSON.stringify(data)
+    
+           
+    await fetch(`${api_root}/demande`, {
+        method:'POST',
+        body: reqBody,
+        headers: {
+            'Content-Type': 'Application/json'
+            
+            
+        }
+    
+    }).then(
+        (res)=>{
+            console.log("KKKKKKKKKKK",res); 
+            return res.json(); 
+            
+            
+        }
+        
+    )
+
+}
+export const listeDivers = () => { 
+    return fetch(`${api_root}/demande`, {
+        method:'GET',
+        //body: reqBody,
+        headers: {
+            'Content-Type': 'Application/json'         
+        }
+    
+    }).then(
+        (res)=>{
+            console.log("resultat",res)
+            return res.json(); 
+        }
+    )
+}
+export const getlisteDivers = (id) => {
+    return fetch(`${api_root}/demande/${id}`, {
+        method:'GET',
+        //body: reqBody,
+        headers: {
+            'Content-Type': 'Application/json'
+            
+        }
+    
+    }).then(
+        (res)=>{
+            return res.json(); 
+        }
+    )
+}
+export const modifierlistedivers = async(diversUpdated,id) => {
+
+    console.log('id ===> ',id)
+    console.log({diversUpdated})
+    const reqBody = JSON.stringify(diversUpdated)
+    let response;
+           
+   await  fetch(`${api_root}/demande/${id}`, {
+        method:'PUT',
+        body: reqBody,
+        headers: {
+            'Content-Type': 'Application/json'
+            
+            
+        }
+        
+    
+    }).then(
+        (res)=>{
+            
+            console.log("Raho yfetchi",res); 
+            response= res;
+            
+            
+        }
+    )
+return response
+}
+export const supprimerdivers = (id) => {
+    
+        
+    return fetch(`${api_root}/demande/${id}`, {
+        method:'DELETE',
+        
         headers: {
             'Content-Type': 'Application/json'
             

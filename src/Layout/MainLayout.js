@@ -8,6 +8,8 @@ import AjouterEmployer from '../Pages/Employe/AjouterEmployer';
 import AjouterLeave from '../Pages/Leave/AjouterLeave';
 import ListeLeaves from '../Pages/Leave/ListeLeaves';
 import Login from '../Pages/Login';
+import DemandeRecrutement from '../Pages/Recrutement/DemandeRecrutement';
+import ListeDemandesRecrutement from '../Pages/Recrutement/ListeDemandesRecrutement';
 import ModifierPersonnel from '../Pages/Employe/ModifierPersonnel';
 import AjouterRecrutement from '../Pages/Recrutement/AjouterRecrutement'
 import ListeRecrutement from '../Pages/Recrutement/ListeRecrutement';
@@ -20,6 +22,7 @@ import AjouterFormation from '../Pages/Formation/AjouterFormation';
 import ListeFormation from '../Pages/Formation/ListeFormation';
 import {listeformation} from '../api/api';
 import ModifierLeave from '../Pages/Leave/ModifierLeave';
+import Quitus from '../Pages/Leave/Quitus';
 const WelcomeMain = () => {
     const useStyles = makeStyles((theme) => ({}));
     const classes = useStyles();
@@ -42,6 +45,10 @@ const WelcomeMain = () => {
                  <Route path="/ListePromotion" component={ListePromotion}/>
                  <Route path="/AjouterFormation/:id_employe" component={AjouterFormation}/>
                  <Route path="/ListeFormation/" component={ListeFormation}/>
+                 <Route path="/DemandeRecrutement/" component={DemandeRecrutement}/>
+                 <Route path="/ListeDemandesRecrutement/" component={ListeDemandesRecrutement}/>
+                 <Route path="/ListeFormation/" component={ListeFormation}/>
+                 <Route path="/Quitus/:congesID" component={Quitus}/>
 
 
 

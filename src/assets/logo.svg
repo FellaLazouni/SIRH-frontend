@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="112.652" height="31.519" viewBox="0 0 112.652 31.519">
+    <defs>
+        <style>
+            .cls-1{fill:none}.cls-2{fill:#fff}.cls-3{clip-path:url(#clip-path)}.cls-4{fill:url(#linear-gradient)}
+        </style>
+        <clipPath id="clip-path">
+            <path d="M0 0h27.529v31.519H0z" class="cls-1"/>
+        </clipPath>
+        <linearGradient id="linear-gradient" x1=".254" x2=".585" y1="-.123" y2=".755" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#feb60f"/>
+            <stop offset="1" stop-color="#ff7d00"/>
+        </linearGradient>
+    </defs>
+    <g id="YASSIR_Logo" data-name="YASSIR Logo" transform="translate(10.885 -70.115)">
+        <g id="Wordmark_Logo" data-name="Wordmark Logo" transform="translate(20.584 79.235)">
+            <path id="Tracé_108" d="M444.943 241.93l4.188-6.506h3.58v.135l-6.281 9.118v6.506h-2.972v-6.506l-6.056-9.118v-.135h3.535z" class="cls-2" data-name="Tracé 108" transform="translate(-437.401 -234.884)"/>
+            <path id="Tracé_109" d="M572.4 248.212h-8.24l-1.351 2.972h-3.219l7.069-15.759h3.241l7.069 15.759h-3.242zm-4.12-9.478l-2.927 6.709h5.853z" class="cls-2" data-name="Tracé 109" transform="translate(-546.396 -234.884)"/>
+            <path id="Tracé_110" d="M733.059 234.766a4.516 4.516 0 0 0-3.737-1.756c-2.206 0-3.264.923-3.264 2.094 0 1.373 1.621 1.756 3.512 1.981 3.287.405 6.349 1.261 6.349 5.02 0 3.512-3.107 5.02-6.619 5.02-3.219 0-5.7-.99-6.867-3.872l2.477-1.283c.7 1.733 2.521 2.5 4.435 2.5 1.869 0 3.625-.653 3.625-2.364 0-1.486-1.553-2.094-3.647-2.319-3.219-.383-6.191-1.238-6.191-4.773 0-3.242 3.2-4.57 6.1-4.593 2.454 0 5 .7 6.191 3.129z" class="cls-2" data-name="Tracé 110" transform="translate(-691.657 -230.421)"/>
+            <path id="Tracé_111" d="M870.884 234.766a4.516 4.516 0 0 0-3.737-1.756c-2.206 0-3.264.923-3.264 2.094 0 1.373 1.621 1.756 3.512 1.981 3.287.405 6.349 1.261 6.349 5.02 0 3.512-3.107 5.02-6.619 5.02-3.219 0-5.7-.99-6.866-3.872l2.476-1.283c.7 1.733 2.522 2.5 4.435 2.5 1.869 0 3.625-.653 3.625-2.364 0-1.486-1.553-2.094-3.647-2.319-3.219-.383-6.191-1.238-6.191-4.773 0-3.242 3.2-4.57 6.1-4.593 2.454 0 5 .7 6.191 3.129z" class="cls-2" data-name="Tracé 111" transform="translate(-814.6 -230.421)"/>
+            <path id="Tracé_112" d="M1006.63 251.183v-15.759h2.949v15.759z" class="cls-2" data-name="Tracé 112" transform="translate(-945.168 -234.884)"/>
+            <path id="Tracé_113" d="M1073.965 251h-3.535l-4.593-5.268h-2.859V251h-2.972v-15.784c2.5 0 5 .022 7.5.022 3.715.023 5.673 2.5 5.673 5.223a4.675 4.675 0 0 1-3.985 4.953l4.773 5.381zm-10.986-12.99v5.043h4.525a2.528 2.528 0 1 0 0-5.043z" class="cls-2" data-name="Tracé 113" transform="translate(-992.782 -234.698)"/>
+        </g>
+        <g id="Symbol_Logo" class="cls-3" data-name="Symbol Logo" transform="translate(-10.885 70.115)">
+            <path id="Tracé_119" d="M173.485 350.636l-12.285 4.472a4.319 4.319 0 0 1-2.954 0l-12.287-4.472v-5.253l12.287 4.472a4.318 4.318 0 0 0 2.954 0l12.287-4.472z" class="cls-2" data-name="Tracé 119" transform="translate(-145.957 -323.85)"/>
+            <path id="Tracé_120" d="M145.955 164.861l11.968-17.945a2.159 2.159 0 0 1 3.593 0l11.968 17.945-12.284 4.472a4.318 4.318 0 0 1-2.954 0z" class="cls-4" data-name="Tracé 120" transform="translate(-145.955 -145.955)"/>
+        </g>
+    </g>
+</svg>

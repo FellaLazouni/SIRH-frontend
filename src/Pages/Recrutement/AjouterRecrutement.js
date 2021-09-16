@@ -15,6 +15,9 @@ import Container from '@material-ui/core/Container';
 import {ajoutersuivirecrutement} from '../../api/api';
 import Menu from '@material-ui/icons/Menu';
 import { List, MenuList } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
+
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 //import {BrowserRouter as Link} from 'react-router-dom';
 
 function Copyright() {
@@ -39,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -63,7 +66,7 @@ export default function SignUp() {
   const [disponibilité,setDisponibilité] = React.useState('');
   const [decision, setDecision] = React.useState('');
   const [dateintegration, setdateintegration] = React.useState('');
-
+  const history = useHistory();
   const handleNomChange = (event)=>{ 
     setNom(event.target.value)
   }
@@ -104,14 +107,14 @@ export default function SignUp() {
   const handleAjoutersuivirecrutement = (event) =>{
     event.preventDefault();
     ajoutersuivirecrutement(nom,prenom,profil,datederecrutement,observationteamRH,observationteamDEV,niveau,disponibilité,decision,dateintegration);
-    
+    history.push('/ListeRecrutement')
   }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <MeetingRoomIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Suivi des recrutements
@@ -163,7 +166,7 @@ export default function SignUp() {
                 fullWidth
                 onChange={handleDatederecrutementChange}
                 id="datederecrutement"
-                label="datederecrutement"
+                label="Date Entretien"
                 name="datederecrutement"
                 type="date"
                 autoComplete="datederecrutement"
@@ -199,7 +202,20 @@ export default function SignUp() {
               />
             </Grid>
 
-           
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                onChange={handleNiveauChange}
+                name="niveau"
+                label="niveau"
+                type="text"
+                id="niveau"
+                autoComplete="niveau"
+                
+              />
+            </Grid>
             
         
         

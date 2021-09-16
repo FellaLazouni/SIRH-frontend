@@ -9,9 +9,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import {listeformation} from '../../api/api';
-import { supprimerformation } from '../../api/api';
+import { supprimerformation, modifierformation } from '../../api/api';
 import "../../css/ListeEmployes.css";
+import "../../css/icon.css"
 import DeleteIcon from '@material-ui/icons/Delete';
+import clsx from 'clsx';
 
 import "../../css/ListeEmployes.css"
 
@@ -23,6 +25,8 @@ import {useTheme } from "@material-ui/core/styles";
 
 import { Button, Link, Menu , MenuItem } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import AddIcon from '@material-ui/icons/Add';
@@ -211,12 +215,24 @@ export default function ListeFormation() {
   };
   const columns = [
     
-        { id: 'dateeffet', label: 'dateeffet', minWidth: 170 },
-        { id: 'observation', label: 'observation', minWidth: 100 },
-        { id: 'document', label: 'document', minWidth: 100 },
-        { id: 'id_poste', label: 'id_poste', minWidth: 100 },
-        { id: 'created_at', label: 'created_at', minWidth: 100 },
-        { id: 'created_by', label: 'created_by', minWidth: 100 },
+        { field: 'dateeffetformat',headerName: 'Date effet', width: 150 },
+        { field: 'observation',headerName: 'observation', width: 150 },
+        { field: 'document',headerName: 'Nom formation', width: 150 },
+        { field: 'id_poste',headerName: 'Document', width: 150 },
+        { field: 'created_at',headerName: 'Etablissement', width: 150 },
+        { field: 'created_by',headerName: 'Disponibilité', width: 150 },
+        {
+          field: 'status',
+         
+          width: 150,
+          cellClassName: (params) =>
+          
+            clsx('super-app', {
+              yellow: params.value ==='En cours',
+              red: params.value ==="Accepté",
+              green: params.value ==="Refusé"
+            }),
+        },
     {
       width: 150,
       field: "deletaction",
@@ -225,10 +241,11 @@ export default function ListeFormation() {
       renderCell: (params) => {
         return (
         <div>
-     <DeleteIcon   className="fella" onClick={()=>DeleteFormation(params.row._id)} />
-       
-        <EditIcon   className="fella" onClick={()=> history.push('/ModifierFormation/'+params.row._id)} />
-
+     {/* <DeleteIcon  className="delete_icon" onClick={()=>DeleteFormation(params.row._id)} />
+        */}
+        {/* <EditIcon   className="fella" onClick={()=> history.push('/ModifierFormation/'+params.row._id)} /> */}
+        <CheckCircleIcon className="validate_icon" onClick={()=>validate(params.row._id)} />
+       <CancelIcon className="refuse_icon" onClick={()=>refuse(params.row._id)}/>
         
         </div>)
       }}
@@ -247,6 +264,21 @@ export default function ListeFormation() {
           padding: theme.spacing(3)
       },
     root: {
+      '& .super-app.yellow': {
+        
+        color: '#ff8e05',
+        fontWeight: '600',
+      },
+      '& .super-app.red': {
+        
+        color: '#0CF916',
+        fontWeight: '600',
+      },
+      '& .super-app.green': {
+        
+        color: '#FE0325',
+        fontWeight: '600',
+      },
       width: "100%",
       marginTop: "50px",
     },
@@ -295,13 +327,29 @@ export default function ListeFormation() {
       fetchFormations();
     });
   };
+  const validate =(id) =>{
+  
+    modifierformation({status: 'Accepté'},id).then(()=> {
+
+      fetchFormations();
+    }
+    
+    )
+  };
+  const refuse =(id) =>{
+    modifierformation({status: 'Refusé' },id).then(()=> {
+      fetchFormations();
+    }
+    
+    )
+  };
   const ListeAction = (event,id)=>
   {
     setAnchorEl(event.currentTarget);
   }
 let i=0
   const formationsRow= formations.map(emp=>({...emp,id:i++, 
-   
+   dateeffetformat:moment(emp.dateeffet).format("YYYY-MM-DD"),
   }))
 
   

@@ -76,6 +76,8 @@ export default function ModifierPersonnel() {
   const [nom,setNom] = useState('');
   const [prenom,setPrenom] = useState('');
   const [email,setEmail] = useState('');
+  const [fonction,setFonction] = useState('');
+  const [departement,setDepartement] = useState('');
   const [Ntel,setNtel] = useState('');
   const [adresse,setAdresse] = useState('');
   const [sexe,setSexe] = useState('');
@@ -91,6 +93,8 @@ export default function ModifierPersonnel() {
         setNom(employe.nom)
         setPrenom(employe.prenom)
         setEmail(employe.email)
+        setFonction(employe.fonction)
+        setDepartement(employe.departement)
         setNtel(employe.Ntel)
         setAdresse(employe.adresse)
         setSexe(employe.sexe)
@@ -120,6 +124,12 @@ export default function ModifierPersonnel() {
   const handleAdresseChange = (event)=>{ 
     setAdresse(event.target.value)
   }
+  const handleFonctionChange = (event)=>{ 
+    setFonction(event.target.value)
+  }
+  const handleDepartementChange = (event)=>{ 
+    setDepartement(event.target.value)
+  }
 
   const handleDatenaissanceChange = (event)=>{ 
     setDatenaissance(event.target.value)
@@ -131,7 +141,7 @@ export default function ModifierPersonnel() {
 
   const handleAjouter = (event) =>{
     event.preventDefault();
-    ajouter(nom,prenom,email,Ntel,adresse,sexe,datenaissance,daterecrutement);
+    ajouter(nom,prenom,email,Ntel,adresse,fonction,departement,sexe,datenaissance,daterecrutement);
     
   }
 
@@ -146,7 +156,7 @@ export default function ModifierPersonnel() {
   const handleModifier = async (event) =>{
       console.log(' dqns hqndle id is :',idemp)
     event.preventDefault();
-    let empolyeUpdated={idemp,nom,prenom,email,Ntel,adresse,sexe,datenaissance,daterecrutement}
+    let empolyeUpdated={idemp,nom,prenom,email,Ntel,adresse,fonction,departement,sexe,datenaissance,daterecrutement}
    
    const res =await modifier(empolyeUpdated,idemp);
    console.log("reponse du modif",res.status)
@@ -224,9 +234,37 @@ export default function ModifierPersonnel() {
                 autoComplete="email"
               />
             </Grid>
-            
+            <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete="fname"
+                name="fonction"
+                variant="outlined"
+                label="fonction"
+                onChange={(event) => setFonction(event.target.value)}
+                required
+                fullWidth
+                id="fonction"
+               // InputLabelProps={{ shrink: true }}
+                value={fonction}
+                autoFocus
+              />
+            </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                onChange={handleDepartementChange}
+                id="departement"
+                label="departement"
+                value={departement}
+                name="departement"
+                InputLabelProps={{ shrink: true }}
+                autoComplete="lname"
+              />
+</Grid>
+            {/* <Grid item xs={12}>
               <TextField
                 variant="outlined"
                 required
@@ -239,7 +277,7 @@ export default function ModifierPersonnel() {
                 id="Ntel"
                 autoComplete="Number"
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -257,7 +295,7 @@ export default function ModifierPersonnel() {
               />
             </Grid>
 
-            { <Grid>
+            {/* { <Grid>
             <TextField
           id="standard-select-currency"
           select
@@ -273,7 +311,7 @@ export default function ModifierPersonnel() {
             </MenuList>
           ))}
         </TextField>
-        </Grid> }
+        </Grid> } */}
 
             <Grid item xs={12}>
               <TextField

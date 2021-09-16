@@ -17,7 +17,7 @@ import Button from '@material-ui/icons/Edit';
 
 import {useTheme } from "@material-ui/core/styles";
 
-
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import { useHistory } from "react-router-dom";
 
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
@@ -193,16 +193,16 @@ export default function ListeRecrutement() {
   };
   const columns = [
 
-      { id: 'Nom', label: 'Nom', minWidth: 170 },
-      { id: 'Prenom', label: 'Prenom', minWidth: 100 },
-      { id: 'Profil', label: 'Profil', minWidth: 100 },
-      { id: 'datederecrutement', label: 'datederecrutement', minWidth: 100 },
-      { id: 'ObservationteamRH', label: 'ObservationteamRH', minWidth: 100 },
-      { id: 'ObservationteamDEV', label: 'ObservationteamDEV', minWidth: 100 },
-      { id: 'Niveau', label: 'Niveau', minWidth: 100 },
-      { id: 'Disponibilité', label: 'Disponibilité', minWidth: 100 },
-      { id: 'Décision', label: 'Décision', minWidth: 100 },
-      { id: 'Dateintegration', label: 'Dateintegration', minWidth: 100 },,
+      { field: 'nom', headerName: 'Nom', width: 150 },
+      { field: 'prenom', headerName: 'Prenom', width: 150 },
+      { field: 'profil', headerName: 'Profil', width: 150 },
+      { field: 'datederecrutementformat', headerName: 'Date Entretien', width: 150 },
+      { field: 'observationteamRH', headerName: 'Observation team RH', width: 150 },
+      { field: 'observationteamDEV', headerName: 'Observation Team DEv', width: 150 },
+      { field: 'niveau', headerName: 'Niveau', width: 150 },
+      { field: 'disponibilité', headerName: 'Disponibilité', width: 150 },
+      { field: 'decision', headerName: 'Décision', width: 150 },
+      { field: 'dateintegrationformat', headerName: 'Date integration', width: 150 },
       {
         width: 150,
         field: "deletaction",
@@ -281,7 +281,8 @@ export default function ListeRecrutement() {
     }
   let i=0
     const recrutementsRow= recrutements.map(emp=>({...emp,id:i++, 
-     
+      datederecrutementformat:moment(emp.daterecrutement).format("YYYY-MM-DD"),
+      dateintegrationformat:moment(emp.dateintegration).format("YYYY-MM-DD")
     }))
   
     
@@ -291,7 +292,7 @@ export default function ListeRecrutement() {
         <PageHeader
                   title="Suivi des Recrutements"
                   subTitle="historique des entretiens"
-                  icon={<PeopleOutlineTwoToneIcon fontSize="large" />}
+                  icon={<MeetingRoomIcon fontSize="large" />}
               /> 
               <Controls.Input
                           label="Search "

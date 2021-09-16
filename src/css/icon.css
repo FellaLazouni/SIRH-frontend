@@ -1,0 +1,12 @@
+.validate_icon,.refuse_icon,.delete_icon{
+    color:darkgray
+}
+.validate_icon:hover{
+    color:lightgreen
+}
+.delete_icon:hover{
+    color:red
+}
+.refuse_icon:hover{
+    color:red
+}
