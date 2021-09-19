@@ -7,7 +7,7 @@ export const login = (email,password) => {
         password: password
     })
         
-    fetch('http://localhost:3000/api/user/login', {
+    fetch(`${api_root}/user/login`, {
         method:'POST',
         body: reqBody,
         headers: {
