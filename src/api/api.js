@@ -1,4 +1,6 @@
-const api_root = 'http://localhost:3000/api';
+
+import api_root from "./config"
+
 export const login = (email,password) => {
     const reqBody = JSON.stringify({
         email: email, 
