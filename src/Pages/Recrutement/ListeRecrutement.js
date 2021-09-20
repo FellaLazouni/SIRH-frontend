@@ -203,20 +203,20 @@ export default function ListeRecrutement() {
       { field: 'disponibilité', headerName: 'Disponibilité', width: 150 },
       { field: 'decision', headerName: 'Décision', width: 150 },
       { field: 'dateintegrationformat', headerName: 'Date integration', width: 150 },
-      {
-        width: 150,
-        field: "deletaction",
-        headerName: "Actions",
-        disableClickEventBubbling: true,
-        renderCell: (params) => {
-          return (
-          <div>
+      // {
+      //   width: 150,
+      //   field: "deletaction",
+      //   headerName: "Actions",
+      //   disableClickEventBubbling: true,
+      //   renderCell: (params) => {
+      //     return (
+      //     <div>
       
-          <EditIcon   className="fella" onClick={()=> history.push('/ModifierRecrutement/')} />
+      //     {/* <EditIcon   className="fella" onClick={()=> history.push('/ModifierRecrutement/')} /> */}
   
           
-          </div>)
-        }}
+      //     </div>)
+      //   }}
         
     ]
     const {

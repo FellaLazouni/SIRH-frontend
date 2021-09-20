@@ -39,7 +39,6 @@ export const calculRelicat =(daterecrutement, duree)=>{
   console.log('cumulDroitEnMois(daterecrutement)',cumulDroitEnMois(daterecrutement))
     return cumulDroitEnMois(daterecrutement) * 2.5 - duree
   } 
-  
   export const calculeAnciete =(daterecrutement)=>{
     console.log('moment dqtereeeee ef dgvsdf g', (moment(new Date()).diff(daterecrutement, 'days')))
     return daterecrutement ? ((moment(new Date()).diff(daterecrutement, 'days'))/365)*12 : 'pas de date'
@@ -82,15 +81,15 @@ export default function ListeLeaves() {
         { field: 'teamMember',headerName:'Team member', width: 150},
         { field: 'fonction',headerName:'Fonction', width: 150},
         { field: 'direction',headerName:'Direction', width: 150},
-        { field: 'daterecrutement',headerName:'date recrutement', width: 150},
+        { field: 'daterecrutement',headerName:'date recrutement', width: 170},
         // { field: 'dated"entree',headerName:'Date d"entree', width: 150},
         // { field: 'jourdumoisd"entree',headerName:'Jour du mois d"entree', width: 150},
         { field: 'anciente', headerName: 'Anciente', width: 150 },
-        { field: 'droitenmois', headerName: 'Droit en mois', width: 150 },
-        { field: 'dateDebtCongeformat', headerName: 'Date conge DU', width: 150 },
-        { field: 'dateFinCongeformat', headerName: 'Date conge AU', width: 150 },
+        { field: 'droitenmois', headerName: 'Droit en mois', width: 170 },
+        { field: 'dateDebtCongeformat', headerName: 'Date conge DU', width: 180 },
+        { field: 'dateFinCongeformat', headerName: 'Date conge AU', width:180 },
       
-        { field: 'duree', headerName: 'Duree de conge', width: 150 },
+        { field: 'duree', headerName: 'Duree ', width: 150 },
         { field: 'interim', headerName: 'Interim', width: 150 },
         { field: 'relicat',headerName: 'Reliquat', width: 150 },
        // { field: 'status', headerName: 'Status', width: 150 },

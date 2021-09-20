@@ -41,7 +41,10 @@ import DemandeRecrutement from "./Pages/Recrutement/DemandeRecrutement"
 import ListeDemandes from "./Pages/Recrutement/ListeDemandes";
 import Dashboard from "./Dashboard";
 import ListeDivers from "./Pages/Divers/ListeDivers";
-
+import AjouterPlanning from "./Pages/Formation/AjouterPlanning"
+import AjouterEntretien from "./Pages/Entretien/AjouterEntretien"
+import PlanningFormation from "./Pages/Formation/PlanningFormation"
+import PlanningEntretien from "./Pages/Entretien/PlanningEntretien"
 
 function App() {
   return (
@@ -77,6 +80,11 @@ function App() {
                  <Route path="/ListeDemandes" component={ListeDemandes} />
                  <Route path="/Dashboard" component={Dashboard}/>
                  <Route path="/ListeDivers" component={ListeDivers}/>
+                 <Route path="/AjouterPlanning" component={AjouterPlanning}/>
+                 <Route path="/AjouterEntretien" component={AjouterEntretien}/>
+                 <Route path="/PlanningEntretien" component={PlanningEntretien}/>
+                 <Route path="/PlanningFormation" component={PlanningFormation}/>
+
 
                  
 

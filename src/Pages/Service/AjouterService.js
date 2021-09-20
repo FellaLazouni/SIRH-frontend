@@ -93,6 +93,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { ajouterservice } from '../../api/api';
 import * as yup from "yup";
 import { useHistory } from 'react-router-dom';
+import ComputerSharpIcon from '@material-ui/icons/ComputerSharp';
+
 const Signup = () => {
     const paperStyle = { padding: '30px 20px', width: 300, margin: "20px auto" };
     const headerStyle = { margin: 0 };
@@ -118,7 +120,7 @@ const Signup = () => {
             <Paper elevation={20} style={paperStyle}>
                 <Grid align='center'>
                     <Avatar style={avatarStyle}>
-                        {/* <AddCircleOutlineOutlinedIcon /> */}
+                        <ComputerSharpIcon /> 
                     </Avatar>
                     <h2 style={headerStyle}>Ajouter un service </h2>
                     <Typography variant='caption' gutterBottom>veuillez specifier les informations concernant l'hierarchie de l'entreprise</Typography>

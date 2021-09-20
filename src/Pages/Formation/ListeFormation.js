@@ -215,12 +215,12 @@ export default function ListeFormation() {
   };
   const columns = [
     
-        { field: 'dateeffetformat',headerName: 'Date effet', width: 150 },
-        { field: 'observation',headerName: 'observation', width: 150 },
-        { field: 'document',headerName: 'Nom formation', width: 150 },
-        { field: 'id_poste',headerName: 'Document', width: 150 },
-        { field: 'created_at',headerName: 'Etablissement', width: 150 },
-        { field: 'created_by',headerName: 'Disponibilité', width: 150 },
+        { field: 'dateeffetformat',headerName: 'Date effet', width: 170 },
+        { field: 'observation',headerName: 'observation', width: 170 },
+        { field: 'document',headerName: 'Nom formation', width: 170 },
+        { field: 'id_poste',headerName: 'Document', width: 170 },
+        { field: 'created_at',headerName: 'Etablissement', width: 170 },
+        { field: 'created_by',headerName: 'Disponibilité', width: 170 },
         {
           field: 'status',
          

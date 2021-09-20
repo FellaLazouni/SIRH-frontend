@@ -11,6 +11,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ajoutergrad } from '../../api/api';
+import GradeIcon from '@material-ui/icons/Grade';
+
 import * as yup from "yup";
 import { useHistory } from 'react-router-dom';
 const Signup = () => {
@@ -21,9 +23,9 @@ const Signup = () => {
    
 
     const schema = yup.object().shape({
-      NomGrad: yup.string().required(),
-      TypeGrad: yup.string().required(),
-      NbAnneeExperience: yup.number().integer().required(),
+      // NomGrad: yup.string().required(),
+      // TypeGrad: yup.string().required(),
+      // NbAnneeExperience: yup.number().integer().required(),
     });
     const history = useHistory();
       const { register, handleSubmit, formState:{ errors } } = useForm({resolver: yupResolver(schema)});
@@ -38,18 +40,18 @@ const Signup = () => {
             <Paper elevation={20} style={paperStyle}>
                 <Grid align='center'>
                     <Avatar style={avatarStyle}>
-                        {/* <AddCircleOutlineOutlinedIcon /> */}
+                       < GradeIcon />
                     </Avatar>
-                    <h2 style={headerStyle}>Ajouter un grad</h2>
-                    <Typography variant='caption' gutterBottom>veuillez specifier les informations concernant le nouveau grad</Typography>
+                    <h2 style={headerStyle}>Ajouter un grade</h2>
+                    <Typography variant='caption' gutterBottom>veuillez specifier les informations concernant le nouveau grade</Typography>
                 </Grid>
 
                    <form onSubmit={handleSubmit(x)}>
                     <TextField 
                     fullWidth 
-                    label='NomGrad' 
+                    label='Nom Grade' 
                     name='NomGrad' 
-                    placeholder="Enterez le nom du grad" 
+                    placeholder="Enterez le nom du grade" 
                     {...register("NomGrad")}>
                     </TextField>
 

@@ -91,10 +91,29 @@ export const SidebarData = [
     path: '/ListeService',
     icon: <ComputerSharpIcon />
   },
+  
+  
+  
   {
     title: 'Formation',
+    path: '#',
+    icon: <ImportContactsSharpIcon />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+    subNav: [
+    {
+    title: 'Liste des formations',
     path: '/ListeFormation',
-    icon: <ImportContactsSharpIcon />
+    icon: <ImportContactsSharpIcon />,
+    
+    },
+      {
+        title: 'Planning des formations',
+        path: '/PlanningFormation',
+        icon: <CalendarTodayIcon />,
+        cName: 'sub-nav'
+      },
+    ]
   },
   {
     title: 'Démission/Retraite',

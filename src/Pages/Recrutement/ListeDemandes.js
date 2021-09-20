@@ -67,11 +67,11 @@ export default function ListeDemandes() {
   const columns = [
     
         { field: 'contenu',headerName: 'Contenu', width: 150 },
-        { field: 'profilrecherche',headerName: 'Profil recherché', width: 150 },
+        { field: 'profilrecherche',headerName: 'Profil recherché', width: 190 },
         { field: 'direction',headerName: 'Direction', width: 150 },
         { field: 'grade',headerName: 'Grade', width: 150 },
         { field: 'contrat',headerName: 'Contrat', width: 150 },
-        { field: 'competence',headerName: 'Competances', width: 150 },
+        { field: 'competence',headerName: 'Competances', width: 170 },
         { field: 'poste', headerName: 'Poste', width: 150 },
         { field: 'projet', headerName: 'Projet', width: 150 },
         {

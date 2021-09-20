@@ -3,7 +3,7 @@ import {useHistory, useParams}from 'react-router-dom';
 import { Grid, Paper, Avatar, Typography, TextField, Button } from '@material-ui/core'
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { ajouterformation } from '../../api/api';
+import { ajouterplanningformation } from '../../api/api';
 
 import * as yup from "yup";
 const Signup = () => {
@@ -14,21 +14,21 @@ const Signup = () => {
     let {id_employe} = useParams();
 
     const schema = yup.object().shape({
-     dateeffet: yup.date().required("date effet should be required please"),
-     observation:yup.string().required("observation should be required please"),
-     document: yup.string().required(),
-     id_poste: yup.string().required(),
-     created_at: yup.string().required(),
-     created_by: yup.string().required(),
+     nomformation: yup.string().required("observation should be required please"),
+     dateformation: yup.date().required("date effet should be required please"),
+     lieuxformation: yup.string().required(),
+     dureeformation: yup.string().required(),
+     nomformateur: yup.string().required(),
+     
     });
     const history = useHistory();
       const { register, handleSubmit, formState:{ errors } } = useForm({resolver: yupResolver(schema)});
-    console.log('errors',errors)
+      console.log('errors',errors)
       const x = async (data) => {
         console.log(data);
         
-        await ajouterformation({...data, id_employe})
-        history.push('/ListeFormation')
+        await ajouterplanningformation({...data})
+        history.push('/PlanningFormation')
       }
     return (
         <Grid>
@@ -37,53 +37,46 @@ const Signup = () => {
                     <Avatar style={avatarStyle}>
                         {/* <AddCircleOutlineOutlinedIcon /> */}
                     </Avatar>
-                    <h2 style={headerStyle}>AJouter une Formation</h2>
-                    <Typography variant='caption' gutterBottom>Please fill this form ask for a leave</Typography>
+                    <h2 style={headerStyle}>Ajouter un planning</h2>
+                    <Typography variant='caption' gutterBottom>inscrire un planning de formation</Typography>
                 </Grid>
 
                    <form onSubmit={handleSubmit(x)}>
                     <TextField 
                     fullWidth 
-                    label='dateeffet' 
-                    name='dateeffet' 
-                    placeholder="Enterez votre date d'effet" 
-                    {...register("dateeffet")}>
+                    label='nomformation' 
+                    name='nomformation' 
+                    placeholder="Enterez votre nomformation" 
+                    {...register("nomformation")}>
                     </TextField>
 
                     <TextField 
-                    fullWidth label='observation' 
-                    name='observation' 
-                    placeholder="Enterez votre observation" 
-                    {...register("observation")}>
+                    fullWidth label='dateformation' 
+                    name='dateformation' 
+                    placeholder="Enterez votre dateformation" 
+                    {...register("dateformation")}>
                     
                     </TextField>
 
                     <TextField fullWidth 
-                    label='document'
-                    name='document'
-                    placeholder="document" 
+                    label='lieuxformation'
+                    name='lieuxformation'
+                    placeholder="lieuxformation" 
 
-                    {...register("document")}/>
+                    {...register("lieuxformation")}/>
                     
                   <TextField fullWidth 
-                    label='id_poste'
-                    name='id_poste' 
-                    placeholder="entrez votre id_poste"
-                    {...register("id_poste")}
+                    label='dureeformation'
+                    name='dureeformation' 
+                    placeholder="entrez votre dureefromation"
+                    {...register("dureeformation")}
                      />
 
                     <TextField fullWidth 
-                    label='created_at' 
-                    name='created_at'
-                     placeholder="created_at" 
-                     {...register("created_at")}/>
-
-                    <TextField fullWidth 
-                    label='created_by'
-                    name='created_by' 
-                    placeholder="created_by"
-                    {...register("created_by")}
-                     />
+                    label='nomformateur' 
+                    name='nomformateur'
+                     placeholder="nomformateur" 
+                     {...register("nomformateur")}/>
                     
                     
                     <div>

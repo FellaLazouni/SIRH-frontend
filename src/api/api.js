@@ -918,3 +918,130 @@ export const supprimerdivers = (id) => {
         }
     )
 }
+export const ajouterplanningformation = async(data) => {
+    console.log("++++++data",data)
+    const reqBody = JSON.stringify(data)
+    
+           
+    await fetch(`${api_root}/planningform`, {
+        method:'POST',
+        body: reqBody,
+        headers: {
+            'Content-Type': 'Application/json'
+            
+            
+        }
+    
+    }).then(
+        (res)=>{
+            console.log("KKKKKKKKKKK",res); 
+            return res.json(); 
+            
+            
+        }
+        
+    )
+
+}
+export const listeplanningformation = () => { 
+    return fetch(`${api_root}/planningform`, {
+        method:'GET',
+        //body: reqBody,
+        headers: {
+            'Content-Type': 'Application/json'         
+        }
+    
+    }).then(
+        (res)=>{
+            console.log("resultat",res)
+            return res.json(); 
+        }
+    )
+}
+export const getplanningform = (id) => {
+    return fetch(`${api_root}/planningform/${id}`, {
+        method:'GET',
+        //body: reqBody,
+        headers: {
+            'Content-Type': 'Application/json'
+            
+        }
+    
+    }).then(
+        (res)=>{
+            return res.json(); 
+        }
+    )
+}
+export const ajouterplanningentretien = async(data) => {
+    console.log("++++++data",data)
+    // const reqBody = JSON.stringify({
+        
+    //     // nom : nom,
+    //     // prenom: prenom,
+    //     // email: email,
+    //     // typedeconge: typedeconge,
+    //     // datedebutconge: datedebutconge,
+    //     // datefinconge: datefinconge,
+    //     // duree: duree,
+    //     // interim: interim
+    // })
+    const reqBody = JSON.stringify(data)
+    return new  Promise((resolve,reject) => { 
+        fetch(`${api_root}/planningentretien`, {
+            method:'POST',
+            body: reqBody,
+            headers: {
+                'Content-Type': 'Application/json'
+                
+                
+            }
+        
+        }).then(
+            (res)=>{
+                console.log("KKKKKKKKKKK",res); 
+                resolve(res.json()); 
+                
+                
+            }
+            
+        ).catch(
+            error => console.log(error)
+        )
+
+    
+
+    })
+           
+    
+}
+export const listeplanningentretien = () => { 
+    return fetch(`${api_root}/planningentretien`, {
+        method:'GET',
+        //body: reqBody,
+        headers: {
+            'Content-Type': 'Application/json'         
+        }
+    
+    }).then(
+        (res)=>{
+            console.log("resultat",res)
+            return res.json(); 
+        }
+    )
+}
+export const getplanningentretien = (id) => {
+    return fetch(`${api_root}/planningentretien/${id}`, {
+        method:'GET',
+        //body: reqBody,
+        headers: {
+            'Content-Type': 'Application/json'
+            
+        }
+    
+    }).then(
+        (res)=>{
+            return res.json(); 
+        }
+    )
+}

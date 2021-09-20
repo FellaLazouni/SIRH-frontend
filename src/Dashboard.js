@@ -141,7 +141,7 @@ const Dashboard = () => {
               ></i>
               <div className="card_inner">
                 <p className="text-primary-p">Nombre d'employés</p>
-                <span className="font-bold text-title">578</span>
+                <span className="font-bold text-title">338</span>
               </div>
             </div>
 
@@ -152,7 +152,7 @@ const Dashboard = () => {
               ></i>
               <div className="card_inner">
                 <p className="text-primary-p">YASSIR VTC</p>
-                <span className="font-bold text-title">2467</span>
+                <span className="font-bold text-title">90</span>
               </div>
             </div>
 
@@ -163,7 +163,7 @@ const Dashboard = () => {
               ></i>
               <div className="card_inner">
                 <p className="text-primary-p">YASSIR EXPRESS</p>
-                <span className="font-bold text-title">340</span>
+                <span className="font-bold text-title">55</span>
               </div>
             </div>
 
@@ -174,22 +174,13 @@ const Dashboard = () => {
               ></i>
               <div className="card_inner">
                 <p className="text-primary-p">YASSIR MARKET</p>
-                <span className="font-bold text-title">645</span>
+                <span className="font-bold text-title">25</span>
               </div>
             </div>
           </div>
 
           <div className="charts">
-            <div className="charts__left">
-              <div className="charts__left__title">
-                <div>
-                  <h1>Rapports quotidiens</h1>
-                  <p>Yassir, Alger</p>
-                </div>
-                <i className="fa fa-usd" aria-hidden="true"></i>
-              </div>
-              <div id="apex1"></div>
-            </div>
+          
 
             <div className="charts__right">
               <div className="charts__right__title">
@@ -203,22 +194,22 @@ const Dashboard = () => {
               <div className="charts__right__cards">
                 <div className="card1">
                   <h1>WEB Developpement</h1>
-                  <p>$75,300</p>
+                  <p>58%</p>
                 </div>
 
                 <div className="card2">
                   <h1>Mobile Developpement</h1>
-                  <p>$124,200</p>
+                  <p>28%</p>
                 </div>
 
                 <div className="card3">
                   <h1>Humain ressources</h1>
-                  <p>3900</p>
+                  <p>4%</p>
                 </div>
 
                 <div className="card4">
                   <h1>Commercial</h1>
-                  <p>1881</p>
+                  <p>10%</p>
                 </div>
               </div>
             </div>

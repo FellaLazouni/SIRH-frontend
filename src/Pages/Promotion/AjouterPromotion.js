@@ -1,5 +1,5 @@
 import React from 'react'
-import {useParams}from 'react-router-dom';
+import {useHistory, useParams}from 'react-router-dom';
 import { Grid, Paper, Avatar, Typography, TextField, Button } from '@material-ui/core'
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import Radio from '@material-ui/core/Radio';
@@ -28,13 +28,14 @@ const Signup = () => {
      created_at: yup.string().required(),
      created_by: yup.string().required(),
     });
-
+    const history = useHistory();
       const { register, handleSubmit, formState:{ errors } } = useForm({resolver: yupResolver(schema)});
     console.log('errors',errors)
       const x = async (data) => {
         console.log(data);
         
         await ajouterpromotion({...data, id_employe})
+        history.push('/ListePromotion')
       }
     return (
         <Grid>
